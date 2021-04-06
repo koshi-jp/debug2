@@ -18,16 +18,22 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :followings, through: :active_relationships, source: :followed
 
-  # def follow(other_user)
-  #   unless self == other_user
-  #     self.relationships.find_or_create_by(followed_id: other_user.id)
-  #   end
-  # end
-
   def followed_by?(user)
   passive_relationships.find_by(follower_id: user.id).present?
   end
 
+  def self.looks(searches, words)
+    if searches == "perfect_match"
+      @user = User.where("name LIKE ?", "#{words}")
+    elsif searches == "partial_match"
+      @user = User.where("name LIKE ?", "%#{words}%")
+    elsif searches == "forward_match"
+      @user = User.where("name LIKE ?", "#{words}%")
+    elsif searches == "backward_match"
+      @user = User.where("name LIKE ?", "%#{words}")
+    end
+
+  end
 
 
 end

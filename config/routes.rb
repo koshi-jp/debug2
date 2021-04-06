@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'finders/finder'
   root 'homes#top'
   get 'home/about' => 'homes#about'
   devise_for :users
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
     resources :post_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
-  
-  
+
+  get 'finder' => "finders#finder"
 
 end
