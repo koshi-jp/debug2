@@ -1,0 +1,1 @@
+$(".post_comments_"+<%=@book_fav.id%>).html("<%= escape_javascript(render partial: 'post_comments/post_comment', locals: {book: @book}) %>");
